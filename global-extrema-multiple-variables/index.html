@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Math Project - Global Extrema In Multiple Variable Function</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <meta name="author" content="Michal Takáč, Jana Pócsová">
+
+  <!-- Twitter Bootstrap -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+  <!-- KaTeX styles -->
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <link rel="stylesheet" href="lib/mathbox.css">
+  <link rel="stylesheet" href="styles/combo.min.css">
+  <!--<script type="text/javascript" src="lib/combo.min.js"></script>-->
+  <link rel="stylesheet" href="styles/style.css">
+
+  <script src="lib/mathbox-bundle.min.js"></script>
+  <script type="text/javascript" src="lib/attributes.js"></script>
+  <script src="lib/math.min.js"></script>
+</head>
+<body>
+  <div class="iframe c" id="visualization"></div>
+
+  <div id="native-frame">
+    <!-- Begin Content --> 
+    <div class="grid">
+
+      <article class="full">
+
+        <div class="wide slideshow full">
+
+          <nav>
+            <div class="prev">
+              <div class="reverse" id="previous">
+                <div class="arrow">
+                  <span class="icon-arrow"><span></span><span></span></span>
+                </div>
+              </div>
+              <div id="slide-number"></div>
+            </div>
+
+            <div class="next">
+              <div id="next">
+                <div class="arrow">
+                  <span class="icon-arrow"><span></span><span></span></span>
+                </div>
+              </div>
+            </div>
+          </nav>
+
+          <div class="steps">
+
+            <div class="step step-1 active">
+              <div class="extra top active">
+                Príklad: Určte najväčšiu a najmenšiu hodnotu funkcie $$f(x,y) = x^2 - y^2$$ v kruhu $$x^2+y^2≤4$$
+              </div>
+
+              <p class="slide-item">
+                <p class="slide-item">Postup, pri hľadaní globálnych extrémov funkcie:</p>
+                <ul class="slide-item">
+                  <li class="slide-item">Vyšetríme lokálne extrémy vo vnútri množiny resp. danej oblasti.</li>
+                  <li class="slide-item">Vyšetríme viazané extrémy funkcie na hranici, t.j. vyšetrenie globálnych extrémov funkcie jednej premennej.</li>
+                  <li class="slide-item">Výpočet funkčných hodnôt vo všetkých nájdených bodoch.</li>
+                </ul>
+              </p>
+            </div>
+
+            <div class="step step-2">
+              <p class="slide-item">
+                Funkcia $f(x,y) = x^2 - y^2$
+              </p>
+            </div>
+
+            <div class="step step-3">
+              <p class="slide-item">
+              </p>
+            </div>
+
+            <div class="step step-4">
+              <p class="slide-item">
+                Horná časť polkružnice: $\color{#FF9a00}{y = \sqrt[2]{4-x^2}}$<br>
+                Dolná časť polkružnice: $\color{#000}{y = -\sqrt[2]{4-x^2}}$
+              </p>
+            </div>
+
+            <div class="step step-5">
+              <p class="slide-item">
+              </p>
+            </div>
+
+            <div class="step step-6">
+              <p class="slide-item">
+              </p>
+            </div>
+
+            <div class="step step-7">
+              <p class="slide-item">
+              </p>
+            </div>
+
+            <div class="step step-8">
+              <p class="slide-item">
+              </p>
+            </div>
+
+            <div class="step step-9">
+              <p class="slide-item">
+              </p>
+            </div>
+            
+          </div>
+          
+        </div>
+
+      </article>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+  <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+  </script>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
