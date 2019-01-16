@@ -4,7 +4,7 @@
  * function from equation is parsed to var "f1" (parser then clears itself) and
  * then you can work with equation f1 as a function in your code.
  *
- * Second equation is loaded from HTML DOM element with jQuery, then evaluated, 
+ * Second equation is loaded from HTML DOM element with jQuery, then evaluated,
  * parsed and rerendered back to corresponding DOM element in form of TeX equation
  * (with help of KaTeX library by Khan Academy).
  *
@@ -26,13 +26,13 @@ MathBox.DOM.Types.latex = MathBox.DOM.createClass({
 });
 // Set smaller height if device width is smaller than 960px
 function mathboxHeight() {
-  var height = 600;
+  var height = 500;
   var width = window.innerWidth;
-  if (width <= 960) height = 500;
+  if (width <= 960) height = 350;
   return height;
 }
 
-// MathBox settings 
+// MathBox settings
 // (visualization is injected into DOM element, we don't use context API here.)
 var mathbox = mathBox({
   element: document.getElementById('visualization'),
@@ -42,10 +42,11 @@ var mathbox = mathBox({
     //klass: THREE.TrackballControls, // keyboard arrows doesn't move camera, but harder to navigate
   },
   size: {
-    height: mathboxHeight()
+		height: mathboxHeight(),
+		width: 500
   },
   camera: {
-    fov: 60, // Field-of-view (degrees)
+    fov: 90, // Field-of-view (degrees)
   }
 });
 
@@ -104,14 +105,14 @@ view.grid({
 view.array({
   data: [[4.3,0,0], [0,13.2,0], [0,0,4.3]],
   channels: 3, // necessary
-  live: false,
+  live: true,
 }).text({
   data: ["x", "z", "y"],
 }).label({
   color: 0xFFFFFF,
   colors: "#colors",
 });
-      
+
 surface = mathbox.select('surface')
 vector = mathbox.select('vector')
 
@@ -871,3 +872,52 @@ scene
       {props: {opacity: 1}},
     ]
   })
+
+// --------- SLIDERS
+
+// FOV
+
+const fovSlider = document.getElementById("fov-range");
+const fovValue = document.getElementById("fov-value");
+fovValue.innerHTML = fovSlider.value;
+
+fovSlider.oninput = function() {
+	fovValue.innerHTML = this.value;
+	mathbox._context.camera.fov = this.value, 10
+}
+
+// Cartesian settings
+const cartesianXMinSlider = document.getElementById("cartesian-x-min-slider");
+const cartesianXMinValue = document.getElementById("cartesian-x-min-value");
+cartesianXMinValue.innerHTML = cartesianXMinSlider.value / 100;
+
+cartesianXMinSlider.oninput = function() {
+	const val = this.value / 100
+	cartesianXMinValue.innerHTML = val;
+	console.log(val)
+	view.grid({
+		axes: [1, 3],
+		width: 1,
+		color: 0xb0b0b0,
+		depth: val,
+	})
+	// view = mathbox.cartesian({
+	// 	range: [[this.value, 4], [-12, 12], [-4, 4]],
+	// 	scale: [1.8, 1.8, 1.8],
+	// 	position: [0, 0, 0]
+	// })
+}
+
+const cartesianXMaxSlider = document.getElementById("cartesian-x-max-slider");
+const cartesianXMaxValue = document.getElementById("cartesian-x-max-value");
+cartesianXMaxValue.innerHTML = cartesianXMaxSlider.value;
+
+cartesianXMaxSlider.oninput = function() {
+	cartesianXMaxValue.innerHTML = this.value;
+	view = mathbox.cartesian({
+		range: [[this.value, 4], [-12, 12], [-4, 4]],
+		scale: [1.8, 1.8, 1.8],
+		position: [0, 0, 0]
+	})
+}
+

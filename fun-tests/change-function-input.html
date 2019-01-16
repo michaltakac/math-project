@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Math Project - Easy mode</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+    <meta name="author" content="Michal Takáč" />
+
+    <!-- Twitter Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+
+    <!-- KaTeX styles -->
+    <link
+      rel="stylesheet"
+      href="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css"
+    />
+    <link rel="stylesheet" href="../lib/mathbox-0.0.5.css" />
+
+    <script src="../lib/mathbox-bundle-0.0.5.min.js"></script>
+    <script type="text/javascript" src="../lib/attributes.js"></script>
+    <script src="../lib/math.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid mt-2">
+      <div class="row">
+        <div class="col-sm-8"><div id="visualization"></div></div>
+        <div
+          class="col-sm-4 mt-4 text-monospace font-weight-light overflow-auto"
+          style="font-size: 11px; height: 600px; padding: 30px; border: 1px solid #c7c7c7;"
+        >
+          <p>
+            Zorné pole (field of view): <span id="fov-value">90</span> <br />
+            <input
+              type="range"
+              min="60"
+              max="100"
+              value="90"
+              class="slider"
+              id="fov-slider"
+            />
+          </p>
+          <hr />
+          <p>
+            Zapnúť mriežku? <input type="checkbox" id="grid-visible" checked />
+          </p>
+          <p>
+            Hrúbka mriežky: <span id="grid-depth-value">25</span> <br />
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="25"
+              class="slider"
+              id="grid-depth-slider"
+            />
+          </p>
+          <hr />
+          <h3>Súradnicová sústava</h3>
+          <p>
+            X min: <span id="cartesian-x-min-value">-4</span> <br />
+            <input
+              type="range"
+              min="100"
+              max="800"
+              value="400"
+              class="slider"
+              id="cartesian-x-min-slider"
+            />
+          </p>
+          <p>
+            X max: <span id="cartesian-x-max-value">4</span> <br />
+            <input
+              type="range"
+              min="100"
+              max="800"
+              value="400"
+              class="slider"
+              id="cartesian-x-max-slider"
+            />
+          </p>
+          <hr />
+          <p>
+            Y min: <span id="cartesian-y-min-value">-4</span> <br />
+            <input
+              type="range"
+              min="100"
+              max="3000"
+              value="1200"
+              class="slider"
+              id="cartesian-y-min-slider"
+            />
+          </p>
+          <p>
+            Y max: <span id="cartesian-y-max-value">4</span> <br />
+            <input
+              type="range"
+              min="100"
+              max="3000"
+              value="1200"
+              class="slider"
+              id="cartesian-y-max-slider"
+            />
+          </p>
+          <hr />
+          <p>
+            Z min: <span id="cartesian-z-min-value">-4</span> <br />
+            <input
+              type="range"
+              min="100"
+              max="800"
+              value="400"
+              class="slider"
+              id="cartesian-z-min-slider"
+            />
+          </p>
+          <p>
+            Z max: <span id="cartesian-z-max-value">4</span> <br />
+            <input
+              type="range"
+              min="100"
+              max="800"
+              value="400"
+              class="slider"
+              id="cartesian-z-max-slider"
+            />
+          </p>
+          <h3>Ohraničená množina vstupných premenných</h3>
+          <p>
+            X min: <span id="function-x-min-value">-4</span> <br />
+            <input
+              type="range"
+              min="0"
+              max="800"
+              value="400"
+              class="slider"
+              id="function-x-min-slider"
+            />
+          </p>
+          <p>
+            X max: <span id="function-x-max-value">4</span> <br />
+            <input
+              type="range"
+              min="0"
+              max="800"
+              value="400"
+              class="slider"
+              id="function-x-max-slider"
+            />
+          </p>
+          <hr />
+          <p>
+            Y min: <span id="function-y-min-value">-4</span> <br />
+            <input
+              type="range"
+              min="0"
+              max="800"
+              value="400"
+              class="slider"
+              id="function-y-min-slider"
+            />
+          </p>
+          <p>
+            Y max: <span id="function-y-max-value">4</span> <br />
+            <input
+              type="range"
+              min="0"
+              max="800"
+              value="400"
+              class="slider"
+              id="function-y-max-slider"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="change-function-input.js"></script>
+  </body>
+</html>

@@ -8,7 +8,7 @@
 
   <!-- Twitter Bootstrap -->
   <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
   <!-- KaTeX styles -->
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
@@ -22,108 +22,119 @@
   <script src="lib/math.min.js"></script>
 </head>
 <body>
-  <div class="iframe c" id="visualization"></div>
+    <div class="container">
+			<div class="row">
+				<div class="col-sm">
+					<!-- Visualization -->
+					<div class="iframe c" id="visualization"></div>
+				</div>
+				<!-- Begin Content -->
+				<div class="col-sm">
+					<article class="full">
+						<div class="wide slideshow full">
+							<!-- Arrows navigation -->
+							<nav>
+								<div class="prev" id="previous">
+									<div class="arrow">
+										<img class="icon-arrow" src="../img/arrow-left.svg" alt="previous" />
+									</div>
+								</div>
+								<div id="slide-number"></div>
+								<div class="next" id="next">
+									<div class="arrow">
+										<img class="icon-arrow"  src="../img/arrow-right.svg" alt="next" />
+									</div>
+								</div>
+							</nav>
 
-  <div id="native-frame">
-    <!-- Begin Content --> 
-    <div class="grid">
+							<div class="steps">
 
-      <article class="full">
+								<div class="step step-1 active">
+									<div class="extra top active">
+										Príklad: Určte najväčšiu a najmenšiu hodnotu funkcie $$f(x,y) = x^2 - y^2$$ v kruhu $$x^2+y^2≤4$$
+									</div>
 
-        <div class="wide slideshow full">
+									<p class="slide-item">
+										<p class="slide-item">Postup, pri hľadaní globálnych extrémov funkcie:</p>
+										<ul class="slide-item">
+											<li class="slide-item">Vyšetríme lokálne extrémy vo vnútri množiny resp. danej oblasti.</li>
+											<li class="slide-item">Vyšetríme viazané extrémy funkcie na hranici, t.j. vyšetrenie globálnych extrémov funkcie jednej premennej.</li>
+											<li class="slide-item">Výpočet funkčných hodnôt vo všetkých nájdených bodoch.</li>
+										</ul>
+									</p>
+								</div>
 
-          <nav>
-            <div class="prev">
-              <div class="reverse" id="previous">
-                <div class="arrow">
-                  <span class="icon-arrow"><span></span><span></span></span>
-                </div>
-              </div>
-              <div id="slide-number"></div>
-            </div>
+								<div class="step step-2">
+									<p class="slide-item">
+										Funkcia $f(x,y) = x^2 - y^2$
+									</p>
+								</div>
 
-            <div class="next">
-              <div id="next">
-                <div class="arrow">
-                  <span class="icon-arrow"><span></span><span></span></span>
-                </div>
-              </div>
-            </div>
-          </nav>
+								<div class="step step-3">
+									<p class="slide-item">
+									</p>
+								</div>
 
-          <div class="steps">
+								<div class="step step-4">
+									<p class="slide-item">
+										Horná časť polkružnice: $\color{#FF9a00}{y = \sqrt[2]{4-x^2}}$<br>
+										Dolná časť polkružnice: $\color{#000}{y = -\sqrt[2]{4-x^2}}$
+									</p>
+								</div>
 
-            <div class="step step-1 active">
-              <div class="extra top active">
-                Príklad: Určte najväčšiu a najmenšiu hodnotu funkcie $$f(x,y) = x^2 - y^2$$ v kruhu $$x^2+y^2≤4$$
-              </div>
+								<div class="step step-5">
+									<p class="slide-item">
+									</p>
+								</div>
 
-              <p class="slide-item">
-                <p class="slide-item">Postup, pri hľadaní globálnych extrémov funkcie:</p>
-                <ul class="slide-item">
-                  <li class="slide-item">Vyšetríme lokálne extrémy vo vnútri množiny resp. danej oblasti.</li>
-                  <li class="slide-item">Vyšetríme viazané extrémy funkcie na hranici, t.j. vyšetrenie globálnych extrémov funkcie jednej premennej.</li>
-                  <li class="slide-item">Výpočet funkčných hodnôt vo všetkých nájdených bodoch.</li>
-                </ul>
-              </p>
-            </div>
+								<div class="step step-6">
+									<p class="slide-item">
+									</p>
+								</div>
 
-            <div class="step step-2">
-              <p class="slide-item">
-                Funkcia $f(x,y) = x^2 - y^2$
-              </p>
-            </div>
+								<div class="step step-7">
+									<p class="slide-item">
+									</p>
+								</div>
 
-            <div class="step step-3">
-              <p class="slide-item">
-              </p>
-            </div>
+								<div class="step step-8">
+									<p class="slide-item">
+									</p>
+								</div>
 
-            <div class="step step-4">
-              <p class="slide-item">
-                Horná časť polkružnice: $\color{#FF9a00}{y = \sqrt[2]{4-x^2}}$<br>
-                Dolná časť polkružnice: $\color{#000}{y = -\sqrt[2]{4-x^2}}$
-              </p>
-            </div>
+								<div class="step step-9">
+									<p class="slide-item">
+									</p>
+								</div>
 
-            <div class="step step-5">
-              <p class="slide-item">
-              </p>
-            </div>
+							</div>
 
-            <div class="step step-6">
-              <p class="slide-item">
-              </p>
-            </div>
+						</div>
 
-            <div class="step step-7">
-              <p class="slide-item">
-              </p>
-            </div>
+					</article>
 
-            <div class="step step-8">
-              <p class="slide-item">
-              </p>
-            </div>
+				</div>
+			</div>
 
-            <div class="step step-9">
-              <p class="slide-item">
-              </p>
-            </div>
-            
-          </div>
-          
-        </div>
-
-      </article>
+			<div class="row">
+				<div class="col-sm">
+						<p>Zorné pole (field of view): <span id="fov-value">90</span></p>
+						<input type="range" min="60" max="100" value="90" class="slider" id="fov-range">
+						<p>X min: <span id="cartesian-x-min-value">-4</span></p>
+						<input type="range" min="25" max="1000" value="1000" class="slider" id="cartesian-x-min-slider">
+						<p>X max: <span id="cartesian-x-max-value">4</span></p>
+						<input type="range" min="1" max="4" value="4" class="slider" id="cartesian-x-max-slider">
+				</div>
+			</div>
 
     </div>
   </div>
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
   <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
   <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
