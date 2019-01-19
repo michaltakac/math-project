@@ -1,0 +1,23 @@
+{
+  "name": "math-project-react-experiments",
+  "version": "1.0.0",
+  "description": "Experimenting with using react and mathbox",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "export": "npm run build && next export"
+  },
+  "keywords": [
+    "mathbox",
+    "react",
+    "math"
+  ],
+  "author": "Michal Takac <takacmichal92@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^7.0.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  }
+}
