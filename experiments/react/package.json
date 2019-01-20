@@ -16,6 +16,8 @@
   "author": "Michal Takac <takacmichal92@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "katex": "^0.10.0",
+    "mathjs": "^5.4.1",
     "next": "^7.0.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"

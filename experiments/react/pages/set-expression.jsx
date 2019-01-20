@@ -1,7 +1,9 @@
 import React from "react";
+import math from "mathjs";
 import Head from "next/head";
 import { Checkbox } from "../components/Checkbox";
 import { Slider } from "../components/Slider";
+import { ExpressionForm } from "../components/ExpressionForm";
 
 export default class Sin extends React.Component {
   state = {
@@ -17,14 +19,17 @@ export default class Sin extends React.Component {
     rangeYMax: 4,
     gridVisible: true,
     gridWidth: 1,
-    fov: 90
+    fov: 90,
+    expression: "x^2 - y^2"
   };
 
   componentDidMount() {
-    function calculateFn(emit, x, y, i, j) {
-      const func = Math.pow(x, 2) - Math.pow(y, 2);
-      emit(x, func, y);
-    }
+    this.parseFn(this.state.expression || "x^2 - y^2");
+
+    const calculateFn = (emit, x, y, i, j) => {
+      const computedVal = this.computeFn({ x, y });
+      emit(x, computedVal, y);
+    };
 
     // Bootstrap MathBox and Three.js
     this.element = document.querySelector("#visualization");
@@ -135,6 +140,18 @@ export default class Sin extends React.Component {
       });
   }
 
+  parseFn(expr) {
+    const parsedFn = math.parse(expr || "x^2 - y^2");
+    const fn = parsedFn.compile();
+    this.setState({
+      fn
+    });
+  }
+
+  computeFn(vars) {
+    return this.state.fn.eval(vars);
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -149,11 +166,30 @@ export default class Sin extends React.Component {
           </div>
           <div className="col-sm-4 mt-4 text-monospace font-weight-light overflow-auto settings-panel">
             <div>
+              <ExpressionForm
+                value={this.state.expression}
+                onChange={e =>
+                  this.setState({
+                    expression: e.target.value
+                  })
+                }
+                onSubmit={e => {
+                  e.preventDefault();
+
+                  this.parseFn(this.state.expression);
+                  this.mathbox
+                    .select("#main-function")
+                    .set("expr", (emit, x, y, i, j) => {
+                      const computedVal = this.computeFn({ x, y });
+                      emit(x, computedVal, y);
+                    });
+                }}
+              />
               <Checkbox
                 text="Zapnúť mriežku?"
                 onChange={e => {
                   this.setState({
-                    gridVisible: !e.target.checked
+                    gridVisible: e.target.checked
                   });
                   this.mathbox
                     .select("grid")
@@ -162,9 +198,9 @@ export default class Sin extends React.Component {
                 checked={this.state.gridVisible}
               />
               <Slider
-                text="Zorné pole (field of view)"
-                min="60"
-                max="100"
+                text="Zorné pole (field of view) [°]"
+                min="50"
+                max="120"
                 value={this.state.fov}
                 onChange={e => {
                   this.setState({
@@ -191,28 +227,8 @@ export default class Sin extends React.Component {
               <hr />
               <Slider
                 text="X min"
-                min="-8"
-                max="8"
-                step="0.1"
-                value={this.state.xMin}
-                onChange={e => {
-                  this.setState({
-                    xMin: parseFloat(e.target.value)
-                  });
-                  this.mathbox
-                    .select("cartesian")
-                    .set("range", [
-                      [this.state.xMin, this.state.xMax],
-                      [this.state.yMin, this.state.yMax],
-                      [this.state.zMin, this.state.zMax]
-                    ]);
-                }}
-              />
-              <hr />
-              <Slider
-                text="X min"
-                min="-8"
-                max="8"
+                min="-30"
+                max="30"
                 step="0.1"
                 value={this.state.xMin}
                 onChange={e => {
@@ -230,8 +246,8 @@ export default class Sin extends React.Component {
               />
               <Slider
                 text="X max"
-                min="-8"
-                max="8"
+                min="-30"
+                max="30"
                 step="0.1"
                 value={this.state.xMax}
                 onChange={e => {
@@ -249,8 +265,8 @@ export default class Sin extends React.Component {
               />
               <Slider
                 text="Y min"
-                min="-24"
-                max="24"
+                min="-30"
+                max="30"
                 step="0.1"
                 value={this.state.yMin}
                 onChange={e => {
@@ -268,8 +284,8 @@ export default class Sin extends React.Component {
               />
               <Slider
                 text="Y max"
-                min="-24"
-                max="24"
+                min="-30"
+                max="30"
                 step="0.1"
                 value={this.state.yMax}
                 onChange={e => {
@@ -287,8 +303,8 @@ export default class Sin extends React.Component {
               />
               <Slider
                 text="Z min"
-                min="-8"
-                max="8"
+                min="-30"
+                max="30"
                 step="0.1"
                 value={this.state.zMin}
                 onChange={e => {
@@ -306,8 +322,8 @@ export default class Sin extends React.Component {
               />
               <Slider
                 text="Z max"
-                min="-8"
-                max="8"
+                min="-30"
+                max="30"
                 step="0.1"
                 value={this.state.zMax}
                 onChange={e => {
@@ -327,8 +343,8 @@ export default class Sin extends React.Component {
               <hr />
               <Slider
                 text="X min"
-                min="-8"
-                max="8"
+                min="-50"
+                max="50"
                 step="0.1"
                 value={this.state.rangeXMin}
                 onChange={e => {
@@ -345,16 +361,16 @@ export default class Sin extends React.Component {
 
                   this.mathbox
                     .select("#main-function")
-                    .set("expr", function(emit, x, y, i, j) {
-                      const func = Math.pow(x, 2) - Math.pow(y, 2);
-                      emit(x, func, y);
+                    .set("expr", (emit, x, y, i, j) => {
+                      const computedVal = this.computeFn({ x, y });
+                      emit(x, computedVal, y);
                     });
                 }}
               />
               <Slider
                 text="X max"
-                min="-8"
-                max="8"
+                min="-50"
+                max="50"
                 step="0.1"
                 value={this.state.rangeXMax}
                 onChange={e => {
@@ -371,16 +387,16 @@ export default class Sin extends React.Component {
 
                   this.mathbox
                     .select("#main-function")
-                    .set("expr", function(emit, x, y, i, j) {
-                      const func = Math.pow(x, 2) - Math.pow(y, 2);
-                      emit(x, func, y);
+                    .set("expr", (emit, x, y, i, j) => {
+                      const computedVal = this.computeFn({ x, y });
+                      emit(x, computedVal, y);
                     });
                 }}
               />
               <Slider
                 text="Y min"
-                min="-8"
-                max="8"
+                min="-50"
+                max="50"
                 step="0.1"
                 value={this.state.rangeYMin}
                 onChange={e => {
@@ -397,16 +413,16 @@ export default class Sin extends React.Component {
 
                   this.mathbox
                     .select("#main-function")
-                    .set("expr", function(emit, x, y, i, j) {
-                      const func = Math.pow(x, 2) - Math.pow(y, 2);
-                      emit(x, func, y);
+                    .set("expr", (emit, x, y, i, j) => {
+                      const computedVal = this.computeFn({ x, y });
+                      emit(x, computedVal, y);
                     });
                 }}
               />
               <Slider
                 text="Y max"
-                min="-8"
-                max="8"
+                min="-50"
+                max="50"
                 step="0.1"
                 value={this.state.rangeYMax}
                 onChange={e => {
@@ -423,9 +439,9 @@ export default class Sin extends React.Component {
 
                   this.mathbox
                     .select("#main-function")
-                    .set("expr", function(emit, x, y, i, j) {
-                      const func = Math.pow(x, 2) - Math.pow(y, 2);
-                      emit(x, func, y);
+                    .set("expr", (emit, x, y, i, j) => {
+                      const computedVal = this.computeFn({ x, y });
+                      emit(x, computedVal, y);
                     });
                 }}
               />

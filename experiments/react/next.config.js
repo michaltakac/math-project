@@ -2,7 +2,8 @@ module.exports = {
   exportPathMap: function() {
     return {
       "/": { page: "/" },
-      "/sin": { page: "/sin" }
+      "/set-expression": { page: "/set-expression" },
+      "/settings": { page: "/settings" }
     };
   }
 };
