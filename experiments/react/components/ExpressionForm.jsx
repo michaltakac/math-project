@@ -1,25 +1,27 @@
 import React from "react";
+import { withNamespaces } from "../i18n";
 
-export function ExpressionForm({ onSubmit, onChange, value }) {
+function ExpressionForm({ t, id, onSubmit, label, onChange, value }) {
   return (
     <form onSubmit={onSubmit}>
       <div className="form-group">
-        <label for="expressionInput">Funkcia:</label>
+        <label htmlFor={`expr-input-${id}`}>Funkcia: {label}</label>
         <input
           className="form-control"
-          id="expressionInput"
-          ariaDescribedBy="expression"
+          id={`expr-input-${id}`}
+          aria-describedby="expression-input"
           type="text"
-          name="expr"
           defaultValue={value}
           onChange={onChange}
         />
       </div>
       <div className="form-group">
         <button className="btn btn-primary" type="submit">
-          Vykresliť
+          {t("draw-function")}
         </button>
       </div>
     </form>
   );
 }
+
+export default withNamespaces("common")(ExpressionForm);

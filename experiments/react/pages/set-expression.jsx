@@ -4,8 +4,10 @@ import Head from "next/head";
 import { Checkbox } from "../components/Checkbox";
 import { Slider } from "../components/Slider";
 import { ExpressionForm } from "../components/ExpressionForm";
+import { Mathbox, initMathBox } from "../common/mathbox";
 
-export default class Sin extends React.Component {
+import { withNamespaces } from "../i18n";
+class Page extends React.Component {
   state = {
     xMin: -4,
     xMax: 4,
@@ -23,6 +25,12 @@ export default class Sin extends React.Component {
     expression: "x^2 - y^2"
   };
 
+  static async getInitialProps() {
+    return {
+      namespacesRequired: ["common"]
+    };
+  }
+
   componentDidMount() {
     this.parseFn(this.state.expression || "x^2 - y^2");
 
@@ -32,23 +40,15 @@ export default class Sin extends React.Component {
     };
 
     // Bootstrap MathBox and Three.js
-    this.element = document.querySelector("#visualization");
-    this.mathbox = mathBox({
-      element: this.element,
-      plugins: ["core", "controls", "cursor"],
+    const el = document.querySelector("#visualization");
+    initMathBox(el, {
       controls: {
         klass: THREE.OrbitControls // NOTE: using keyboard arrows for slides moves camera too
         // klass: THREE.TrackballControls // keyboard arrows doesn't move camera, but harder to navigate
-      },
-      size: {
-        height: 600
-      },
-      camera: {
-        fov: 90 // Field-of-view (degrees)
       }
     });
 
-    var three = this.mathbox.three;
+    var three = Mathbox.three;
     three.camera.position.set(2, 1.7, 2.7);
     three.renderer.setClearColor(new THREE.Color(0xffffff), 1.0);
 
@@ -62,7 +62,7 @@ export default class Sin extends React.Component {
     // Initial time
     let time = 0;
 
-    var view = this.mathbox.cartesian({
+    var view = Mathbox.cartesian({
       range: [[-4, 4], [-12, 12], [-4, 4]],
       scale: [1.5, 1.5, 1.5],
       position: [0, 0, 0]
@@ -81,8 +81,7 @@ export default class Sin extends React.Component {
       color: colors.y
     });
 
-    this.mathbox
-      .select("axis")
+    Mathbox.select("axis")
       .set("end", true)
       .set("width", 5);
 
@@ -177,12 +176,13 @@ export default class Sin extends React.Component {
                   e.preventDefault();
 
                   this.parseFn(this.state.expression);
-                  this.mathbox
-                    .select("#main-function")
-                    .set("expr", (emit, x, y, i, j) => {
+                  Mathbox.select("#main-function").set(
+                    "expr",
+                    (emit, x, y, i, j) => {
                       const computedVal = this.computeFn({ x, y });
                       emit(x, computedVal, y);
-                    });
+                    }
+                  );
                 }}
               />
               <Checkbox
@@ -191,9 +191,10 @@ export default class Sin extends React.Component {
                   this.setState({
                     gridVisible: e.target.checked
                   });
-                  this.mathbox
-                    .select("grid")
-                    .set("opacity", this.state.gridVisible ? 1 : 0);
+                  Mathbox.select("grid").set(
+                    "opacity",
+                    this.state.gridVisible ? 1 : 0
+                  );
                 }}
                 checked={this.state.gridVisible}
               />
@@ -206,7 +207,7 @@ export default class Sin extends React.Component {
                   this.setState({
                     fov: parseFloat(e.target.value)
                   });
-                  this.mathbox._context.camera.fov = parseFloat(e.target.value);
+                  Mathbox._context.camera.fov = parseFloat(e.target.value);
                 }}
               />
               <Slider
@@ -219,9 +220,10 @@ export default class Sin extends React.Component {
                   this.setState({
                     gridWidth: parseFloat(e.target.value)
                   });
-                  this.mathbox
-                    .select("grid")
-                    .set("width", parseFloat(e.target.value));
+                  Mathbox.select("grid").set(
+                    "width",
+                    parseFloat(e.target.value)
+                  );
                 }}
               />
               <hr />
@@ -235,13 +237,11 @@ export default class Sin extends React.Component {
                   this.setState({
                     xMin: parseFloat(e.target.value)
                   });
-                  this.mathbox
-                    .select("cartesian")
-                    .set("range", [
-                      [this.state.xMin, this.state.xMax],
-                      [this.state.yMin, this.state.yMax],
-                      [this.state.zMin, this.state.zMax]
-                    ]);
+                  Mathbox.select("cartesian").set("range", [
+                    [this.state.xMin, this.state.xMax],
+                    [this.state.yMin, this.state.yMax],
+                    [this.state.zMin, this.state.zMax]
+                  ]);
                 }}
               />
               <Slider
@@ -254,13 +254,11 @@ export default class Sin extends React.Component {
                   this.setState({
                     xMax: parseFloat(e.target.value)
                   });
-                  this.mathbox
-                    .select("cartesian")
-                    .set("range", [
-                      [this.state.xMin, this.state.xMax],
-                      [this.state.yMin, this.state.yMax],
-                      [this.state.zMin, this.state.zMax]
-                    ]);
+                  Mathbox.select("cartesian").set("range", [
+                    [this.state.xMin, this.state.xMax],
+                    [this.state.yMin, this.state.yMax],
+                    [this.state.zMin, this.state.zMax]
+                  ]);
                 }}
               />
               <Slider
@@ -273,13 +271,11 @@ export default class Sin extends React.Component {
                   this.setState({
                     yMin: parseFloat(e.target.value)
                   });
-                  this.mathbox
-                    .select("cartesian")
-                    .set("range", [
-                      [this.state.xMin, this.state.xMax],
-                      [this.state.yMin, this.state.yMax],
-                      [this.state.zMin, this.state.zMax]
-                    ]);
+                  Mathbox.select("cartesian").set("range", [
+                    [this.state.xMin, this.state.xMax],
+                    [this.state.yMin, this.state.yMax],
+                    [this.state.zMin, this.state.zMax]
+                  ]);
                 }}
               />
               <Slider
@@ -292,13 +288,11 @@ export default class Sin extends React.Component {
                   this.setState({
                     yMax: parseFloat(e.target.value)
                   });
-                  this.mathbox
-                    .select("cartesian")
-                    .set("range", [
-                      [this.state.xMin, this.state.xMax],
-                      [this.state.yMin, this.state.yMax],
-                      [this.state.zMin, this.state.zMax]
-                    ]);
+                  Mathbox.select("cartesian").set("range", [
+                    [this.state.xMin, this.state.xMax],
+                    [this.state.yMin, this.state.yMax],
+                    [this.state.zMin, this.state.zMax]
+                  ]);
                 }}
               />
               <Slider
@@ -311,13 +305,11 @@ export default class Sin extends React.Component {
                   this.setState({
                     zMin: parseFloat(e.target.value)
                   });
-                  this.mathbox
-                    .select("cartesian")
-                    .set("range", [
-                      [this.state.xMin, this.state.xMax],
-                      [this.state.yMin, this.state.yMax],
-                      [this.state.zMin, this.state.zMax]
-                    ]);
+                  Mathbox.select("cartesian").set("range", [
+                    [this.state.xMin, this.state.xMax],
+                    [this.state.yMin, this.state.yMax],
+                    [this.state.zMin, this.state.zMax]
+                  ]);
                 }}
               />
               <Slider
@@ -330,13 +322,11 @@ export default class Sin extends React.Component {
                   this.setState({
                     zMax: parseFloat(e.target.value)
                   });
-                  this.mathbox
-                    .select("cartesian")
-                    .set("range", [
-                      [this.state.xMin, this.state.xMax],
-                      [this.state.yMin, this.state.yMax],
-                      [this.state.zMin, this.state.zMax]
-                    ]);
+                  Mathbox.select("cartesian").set("range", [
+                    [this.state.xMin, this.state.xMax],
+                    [this.state.yMin, this.state.yMax],
+                    [this.state.zMin, this.state.zMax]
+                  ]);
                 }}
               />
               <h5>Ohraničená množina vstupných premenných</h5>
@@ -352,19 +342,18 @@ export default class Sin extends React.Component {
                     rangeXMin: parseFloat(e.target.value)
                   });
 
-                  this.mathbox
-                    .select("#main-function")
-                    .set("rangeX", [
-                      this.state.rangeXMin,
-                      this.state.rangeXMax
-                    ]);
+                  Mathbox.select("#main-function").set("rangeX", [
+                    this.state.rangeXMin,
+                    this.state.rangeXMax
+                  ]);
 
-                  this.mathbox
-                    .select("#main-function")
-                    .set("expr", (emit, x, y, i, j) => {
+                  Mathbox.select("#main-function").set(
+                    "expr",
+                    (emit, x, y, i, j) => {
                       const computedVal = this.computeFn({ x, y });
                       emit(x, computedVal, y);
-                    });
+                    }
+                  );
                 }}
               />
               <Slider
@@ -378,19 +367,18 @@ export default class Sin extends React.Component {
                     rangeXMax: parseFloat(e.target.value)
                   });
 
-                  this.mathbox
-                    .select("#main-function")
-                    .set("rangeX", [
-                      this.state.rangeXMin,
-                      this.state.rangeXMax
-                    ]);
+                  Mathbox.select("#main-function").set("rangeX", [
+                    this.state.rangeXMin,
+                    this.state.rangeXMax
+                  ]);
 
-                  this.mathbox
-                    .select("#main-function")
-                    .set("expr", (emit, x, y, i, j) => {
+                  Mathbox.select("#main-function").set(
+                    "expr",
+                    (emit, x, y, i, j) => {
                       const computedVal = this.computeFn({ x, y });
                       emit(x, computedVal, y);
-                    });
+                    }
+                  );
                 }}
               />
               <Slider
@@ -404,19 +392,18 @@ export default class Sin extends React.Component {
                     rangeYMin: parseFloat(e.target.value)
                   });
 
-                  this.mathbox
-                    .select("#main-function")
-                    .set("rangeY", [
-                      this.state.rangeYMin,
-                      this.state.rangeYMax
-                    ]);
+                  Mathbox.select("#main-function").set("rangeY", [
+                    this.state.rangeYMin,
+                    this.state.rangeYMax
+                  ]);
 
-                  this.mathbox
-                    .select("#main-function")
-                    .set("expr", (emit, x, y, i, j) => {
+                  Mathbox.select("#main-function").set(
+                    "expr",
+                    (emit, x, y, i, j) => {
                       const computedVal = this.computeFn({ x, y });
                       emit(x, computedVal, y);
-                    });
+                    }
+                  );
                 }}
               />
               <Slider
@@ -430,19 +417,18 @@ export default class Sin extends React.Component {
                     rangeYMax: parseFloat(e.target.value)
                   });
 
-                  this.mathbox
-                    .select("#main-function")
-                    .set("rangeY", [
-                      this.state.rangeYMin,
-                      this.state.rangeYMax
-                    ]);
+                  Mathbox.select("#main-function").set("rangeY", [
+                    this.state.rangeYMin,
+                    this.state.rangeYMax
+                  ]);
 
-                  this.mathbox
-                    .select("#main-function")
-                    .set("expr", (emit, x, y, i, j) => {
+                  Mathbox.select("#main-function").set(
+                    "expr",
+                    (emit, x, y, i, j) => {
                       const computedVal = this.computeFn({ x, y });
                       emit(x, computedVal, y);
-                    });
+                    }
+                  );
                 }}
               />
             </div>
@@ -462,3 +448,5 @@ export default class Sin extends React.Component {
     );
   }
 }
+
+export default withNamespaces("common")(Page);

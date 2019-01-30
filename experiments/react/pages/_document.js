@@ -23,7 +23,16 @@ export default class MyDocument extends Document {
 
           <link
             rel="stylesheet"
-            href="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css"
+            href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css"
+            integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y"
+            crossOrigin="anonymous"
+          />
+
+          <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js"
+            integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx"
+            crossOrigin="anonymous"
           />
           <link rel="stylesheet" href="/static/lib/mathbox-0.0.5.css" />
 

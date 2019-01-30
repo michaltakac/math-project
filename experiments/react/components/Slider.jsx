@@ -19,6 +19,7 @@ export function Slider({ min, max, step, value, text, onChange }) {
       <style jsx>{`
         .slider {
           -webkit-appearance: none;
+          margin-top: 0.5rem;
           width: 270px;
           height: 10px;
           background: #d3d3d3;
