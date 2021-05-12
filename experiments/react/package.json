@@ -20,7 +20,7 @@
     "constate": "^1.0.0-alpha.7",
     "express": "^4.16.4",
     "katex": "^0.10.0",
-    "mathjs": "^5.4.1",
+    "mathjs": "^7.5.1",
     "next": "^7.0.2",
     "next-i18next": "^0.23.2",
     "react": "^16.8.0-alpha.1",
